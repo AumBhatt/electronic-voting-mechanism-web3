@@ -59,9 +59,6 @@ var App = {
         return;
       }
       App.setLoading(true);
-
-      // console.log(App.election.getCommiteeMemberName.call(App.account))
-      // App.election.addCandidate("xyz", { from: App.account });
       console.log("Candidate Count : " + App.election.candidatesCount());
       App.renderCandidates();
       App.setLoading(false);
@@ -69,9 +66,8 @@ var App = {
   
     //This will render blockchain data to the frontend.
     renderCandidates: async() => {
-      $('#account').html("AUm");
+      $('#account').html("Account Address<br>" + App.account);
       var candidatesCount = await App.election.candidatesCount();
-      console.log("Member : ", App.election.getCommiteeMemberName())
   
       $("#candidateResults").html("");
       $("#candidatesSelect").html("");

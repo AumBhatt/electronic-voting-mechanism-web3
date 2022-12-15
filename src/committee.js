@@ -1,4 +1,4 @@
-import {createContractInstance, getCandidatesList} from "./interact.js";
+import createContractInstance from "./interact.js";
 if(typeof web3 !== 'undefined') {
     web3 = new Web3(web3.currentProvider)
 } else {
@@ -6,25 +6,27 @@ if(typeof web3 !== 'undefined') {
 }
 
 const {contract, accounts} = await createContractInstance();
-const name = await contract.methods.getCommiteeMemberName().call({from: accounts[0]})
-console.log(accounts)
-$('#account').html(name);
-$("#candidateResults").html("");
+const memberName = await contract.methods.getCommitteeMemberName().call({from: accounts[0]});
+$("#account").html(memberName)
+console.log(memberName)
+$.style.display = "none";
 
-renderCandidates();
+checkIfCommitteeMember().then(
+    (isMember) => {
+        console.log(isMember)
+        if(!isMember) {
+            alert("You are not authorized to visit his page.");
+            window.location = "/";
+        }
+        else 
+            $.style.display = "block";
+            renderCandidates()
+    }
+);
 
-// function addCandidate(newCandidate) {
-//     const status = contract.methods.addCandidate(newCandidate).call({from: accounts[0]});
-
-//     return status;
-// }
-
-// addCandidate("Candidate 4").then(async (status) => {
-//     console.log(status);
-//     // const candidatesCount = await contract.methods.candidatesCount().call({from: accounts[0]})
-    
-//     renderCandidates();
-// });
+async function checkIfCommitteeMember() {
+    return await contract.methods.isCommitteeMember().call({from: accounts[0]})
+}
 
 document.getElementById("newCandidateForm").addEventListener("click", () => {
     var name = document.getElementById("newCandidateName").value;
@@ -34,9 +36,8 @@ document.getElementById("newCandidateForm").addEventListener("click", () => {
             return await contract.methods.addCandidate(name).send({from: accounts[0]});
         })().then((e) => {
             console.log(e)
-            setTimeout(() => {
-                renderCandidates()
-            }, 2000);
+            document.getElementById("newCandidateName").value = "";
+            renderCandidates();
         });
     }
 });

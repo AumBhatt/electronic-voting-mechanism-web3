@@ -10,36 +10,39 @@
   <body>
     <div style="width: 40%; margin: 50px auto" class="card">
             <!-- Account address will be rendered here -->
-            <center style="margin-top: 20px">
-              Commitee Member:
-              <span id="account"></span>
-            </center>
+            <center id="account" style="margin-top: 20px"></center>
 
             <!-- Loading will appear until blockchain data is loaded -->
-            <!-- <center id='loader' style="margin:20px;">Loading...</center> -->
+            <center id='loader' style="margin:20px;">Loading...</center>
             
             <br><br>
             
             <!-- Blockchain data would appear here -->
-            <div id="content"  class="container" style="margin-top:30px;">
+            <div id="content" style="display:none" class="container" style="margin-top:30px;">
                 <!-- Table for fetching election data of the candidates -->
                 <table class="table table-bordered">
-                  <tr>
-                      <td>#</td>
-                      <td>Name</td>
-                      <td>Votes</td>
-                  </tr>
-                  <tbody id="candidateResults">
-  
-                  </tbody>
+                    <tr>
+                        <td>#</td>
+                        <td>Name</td>
+                        <td>Votes</td>
+                    </tr>
+                    <tbody id="candidateResults">
+    
+                    </tbody>
                 </table>
-                <!-- Form to submit new candidate -->
-                <div style="display: flex; flex-direction: column; justify-content: space-between;">
-                  <div class="form-group">
-                    <input type="text" id="newCandidateName" class="form-control" placeholder="Name of the candidate">
-                  </div>
-                  <button class="btn btn-primary" id="newCandidateForm">Submit</button>
-                </div>
+    
+                <!-- Form to submit vote to a candidate -->
+                <form onSubmit="App.castVote(); return false;" style="display:none">
+                    <div class="form-group">
+                        <label>Select Candidate</label>
+                        <center>
+                            <select class="form-control" id="candidatesSelect">
+                                <option>Select here...</option>
+                            </select><br>
+                            <input type="submit" class="btn btn-primary" value="Vote">
+                        </center>
+                    </div>
+                </form>
     
                 <!-- This would appear and form will be hidden if the address has already voted -->
                 <div id="hasVoted" style="display:none; text-align: center">
@@ -59,7 +62,5 @@
   <script src="https://rajranjan0608.github.io/ethereum-electionVoting/src/contract.js"></script>
 
   <!--Our custom javascript code for interaction-->
-  <!-- <script type="module" language="javascript" src="index.js"></script> -->
-  <!-- <script type="module" language="javascript" src="index1.js"></script> -->
-  <script defer type="module" src="commitee.js"></script>
+  <script type="module" language="javascript" src="index.js"></script>
 </html>

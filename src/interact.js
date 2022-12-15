@@ -35,4 +35,4 @@ async function getCandidate(i, contract, account) {
     return await contract.methods.candidates(i).call({from: account});
 }
 
-export {createContractInstance, getCandidatesList};
+export default createContractInstance;

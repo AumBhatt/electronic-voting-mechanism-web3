@@ -9,7 +9,7 @@ contract Election {
     string name;
     uint voteCount;
   }
-  struct Commitee {
+  struct Committee {
     string name;
     bool exists;
   }
@@ -21,7 +21,7 @@ contract Election {
   mapping(address => bool) public voters;
 
 
-  mapping(address => Commitee) private commitee;
+  mapping(address => Committee) private committee;
 
 
   //Number of candidates in standing in the election
@@ -32,14 +32,14 @@ contract Election {
     candidates[++candidatesCount] = Candidate(candidatesCount, "Candidate 1", 0);
     candidates[++candidatesCount] = Candidate(candidatesCount, "Candidate 2", 0);
     candidates[++candidatesCount] = Candidate(candidatesCount, "Candidate 3", 0);
-    commitee[0x75b7779C0e422a662E1fF5a68fC06C88B9FcB351] = Commitee("Aum", true);
-    commitee[0x4a2Ef3ef56125e6421eef61B2826E0725E55d96c] = Commitee("Adeeb", true);
-    commitee[0x8887601CFB9a23AfA779C352ec9395491e4dDD06] = Commitee("Tafveez", true);
+    committee[0x75b7779C0e422a662E1fF5a68fC06C88B9FcB351] = Committee("Aum", true);
+    committee[0xb478fe17Ba7Fc62B1D9878549B579bC41418CBDF] = Committee("Adeeb", true);
+    committee[0xFCec79263448E5aC1938d19879719786fb4De6a8] = Committee("Tafveez", true);
   }
 
   //Private function to add a candidate
   function addCandidate (string memory _name) public returns (string memory){
-      if(isCommiteeMember() == true) {
+      if(isCommitteeMember() == true) {
         candidates[++candidatesCount] = Candidate(candidatesCount, _name, 0);
         return candidates[candidatesCount].name;
       }
@@ -50,16 +50,16 @@ contract Election {
       return (candidates[n].id, candidates[n].name, candidates[n].voteCount);
   }
 
-  function isCommiteeMember () public view returns(bool) {
-      if(commitee[msg.sender].exists) {
+  function isCommitteeMember () public view returns(bool) {
+      if(committee[msg.sender].exists) {
           return true;
       }
       else return false;
   }
 
-  function getCommiteeMemberName () public view returns(string memory) {
-    if(isCommiteeMember() == true) {
-        return commitee[msg.sender].name;
+  function getCommitteeMemberName () public view returns(string memory) {
+    if(isCommitteeMember() == true) {
+        return committee[msg.sender].name;
       }
       return "no name";
   }
