@@ -22,7 +22,17 @@ async function createContractInstance() {
 
 async function getCandidatesList() {
     const {contract, accounts} = await createContractInstance();
-    const candidates = await contract.methods.candidates(1).call({from: accounts[0]});
+    const candidatesCount = await contract.methods.candidatesCount().call({from: accounts[0]})
+    const candidatesList = [];
+    for(let i=1; i<=candidatesCount; ++i){
+        var c = 
+        candidatesList.push(c);
+    }
+    return candidatesList;
+}
+
+async function getCandidate(i, contract, account) {
+    return await contract.methods.candidates(i).call({from: account});
 }
 
 export {createContractInstance, getCandidatesList};

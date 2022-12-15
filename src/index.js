@@ -70,7 +70,6 @@ var App = {
     //This will render blockchain data to the frontend.
     renderCandidates: async() => {
       $('#account').html("AUm");
-      // App.election.addCandidate("xyz", { from: App.account });
       var candidatesCount = await App.election.candidatesCount();
       console.log("Member : ", App.election.getCommiteeMemberName())
   
@@ -78,7 +77,7 @@ var App = {
       $("#candidatesSelect").html("");
         
       for(var i=1; i <= candidatesCount; i++) {
-        const candidate = await App.election.candidates(i);
+        const candidate = await App.election.getCandidate(i);
   
         const id = candidate[0];
         const name = candidate[1];
