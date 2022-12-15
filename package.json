@@ -1,0 +1,22 @@
+{
+  "name": "electionvoting",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "cd src && node server.js"
+  },
+  "author": "Raj Ranjan",
+  "license": "ISC",
+  "dependencies": {
+    "@truffle/contract": "^4.3.15",
+    "@truffle/hdwallet-provider": "^1.0.27",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "truffle-contract": "^4.0.31",
+    "truffle-hdwallet-provider": "^1.0.17"
+  }
+}
